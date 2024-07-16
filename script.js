@@ -48,3 +48,28 @@ function fetchSchedule() {
         const currentClassItem = document.createElement('div');
         currentClassItem.innerHTML = `<strong>Current class:</strong> ${currentClass.name} (${currentClass.start.slice(11, 16)} - ${currentClass.end.slice(11, 16)})`;
         document.getElementById('scheduleContainer').appendChild(currentClassItem);
+
+        // Display the ends in part below the current class line
+        const endsInItem = document.createElement('div');
+        endsInItem.innerHTML = `Ends in ${Math.floor(minutesLeftInClass / 60)} hours and ${minutesLeftInClass % 60} minutes`;
+        document.getElementById('scheduleContainer').appendChild(endsInItem);
+      } else if (nextClass) {
+        // Display the next class
+        const nextClassItem = document.createElement('div');
+        nextClassItem.innerHTML = `<strong>Next class:</strong> ${nextClass.name} starts at ${nextClass.start.slice(11, 16)}`;
+        document.getElementById('scheduleContainer').appendChild(nextClassItem);
+      } else {
+        // Display message if the day is over
+        const dayOverMsg = document.createElement('div');
+        dayOverMsg.innerHTML = `<strong>The day has ended, see you tomorrow!</strong>`;
+        document.getElementById('scheduleContainer').appendChild(dayOverMsg);
+      }
+    })
+    .catch(error => {
+      // Handle any errors here
+      console.error('Error:', error);
+    });
+}
+
+// Function call
+fetchSchedule();
